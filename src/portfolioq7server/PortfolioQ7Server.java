@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
+import java.io.IOException;
 
 public class PortfolioQ7Server extends Application {
     private Stage stage;
@@ -53,6 +54,17 @@ public class PortfolioQ7Server extends Application {
         vBox.setPadding(new Insets(10, 10, 10, 10));
         vBox.setSpacing(10);
         vBox.getChildren().addAll(startBtn, openBtn, textField, sendBtn);
+        
+        new Thread() {
+            public void run() {
+                try {
+                    server.startServer();
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e);
+                }
+                
+            }
+        }.start();
         
         scene = new Scene(vBox, 300, 150);
         stage.setScene(scene);
