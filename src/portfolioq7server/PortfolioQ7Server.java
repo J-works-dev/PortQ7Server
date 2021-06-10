@@ -9,8 +9,6 @@ package portfolioq7server;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,9 +25,6 @@ public class PortfolioQ7Server extends Application {
     private Button openBtn;
     private Button sendBtn;
     private TextField textField;
-//    static Socket socket;
-    private InputStream is;
-    private BufferedOutputStream bos;
     private File file;
     static Server server = new Server();
     
@@ -69,16 +64,18 @@ public class PortfolioQ7Server extends Application {
         scene = new Scene(vBox, 300, 150);
         stage.setScene(scene);
         stage.show();
-        
     }
+    
     public void startButtonClicked() {
         try {
+            server.closeAll();
             server.startServer();
         } catch (IOException e) {
-            
+//            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
         
     }
+    
     public void openButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         file = fileChooser.showOpenDialog(stage);
@@ -99,6 +96,5 @@ public class PortfolioQ7Server extends Application {
     
     public static void main(String[] args) throws IOException {
         launch(args);
-//        server.startServer();
     }
 }
